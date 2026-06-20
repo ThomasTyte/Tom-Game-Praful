@@ -42,7 +42,7 @@ import * as subscriptionbannerdictionary from 'src/components/subscription-banne
 import * as StructuredData from 'src/components/structured-data/StructuredData';
 import * as SecondaryNavigation from 'src/components/secondary-navigation/SecondaryNavigation';
 import * as secondarynavigationprops from 'src/components/secondary-navigation/secondary-navigation.props';
-import * as searchbar from 'src/components/searchbar/searchbar';
+import * as Searchbar from 'src/components/searchbar/Searchbar';
 import * as RichTextBlock from 'src/components/rich-text-block/RichTextBlock';
 import * as richtextblockprops from 'src/components/rich-text-block/rich-text-block.props';
 import * as PromoBlock from 'src/components/promo-block/PromoBlock';
@@ -173,7 +173,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['StructuredData', { ...StructuredData }],
   ['SecondaryNavigation', { ...SecondaryNavigation, componentType: 'client' }],
   ['secondary-navigation', { ...secondarynavigationprops }],
-  ['searchbar', { ...searchbar }],
+  ['Searchbar', { ...Searchbar, componentType: 'client' }],
   ['RichTextBlock', { ...RichTextBlock }],
   ['rich-text-block', { ...richtextblockprops }],
   ['PromoBlock', { ...PromoBlock }],
