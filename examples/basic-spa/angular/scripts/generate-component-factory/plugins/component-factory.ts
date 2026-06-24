@@ -1,4 +1,3 @@
-
 import * as fs from 'fs';
 import path from 'path';
 import chokidar from 'chokidar';
@@ -16,11 +15,11 @@ export interface PackageDefinition {
   }[];
 }
 
-const componentFactoryPath = path.resolve('src/app/components/app-components.module.ts');
-const componentRootPath = 'src/app/components';
+const componentFactoryPath = path.resolve('src/components/componentFactory.ts');
+const componentRootPath = 'src/components';
 
 function watchComponentFactory(config: ComponentFactoryPluginConfig) {
-  console.log(`Watching for changes to component factory sources in ${componentRootPath}...`);
+  console.log(`Watching for changes to React component factory sources in ${componentRootPath}...`);
 
   chokidar
     .watch(componentRootPath, { ignoreInitial: true, awaitWriteFinish: true })
@@ -37,13 +36,6 @@ function writeComponentFactory(config: ComponentFactoryPluginConfig) {
 }
 
 function generateComponentFactory(config: ComponentFactoryPluginConfig) {
-  // By convention, we expect to find Angular components
-  // under /src/app/components/component-name/component-name.component.ts
-  // If a component-name.module.ts file exists, we will treat it as lazy loaded.
-  // If you'd like to use your own convention, encode it below.
-  // NOTE: generating the component factory module is also totally optional,
-  // and it can be maintained manually if preferred.
-
   const imports: string[] = [];
   const registrations: string[] = [];
   const lazyRegistrations: string[] = [];
@@ -61,62 +53,46 @@ function generateComponentFactory(config: ComponentFactoryPluginConfig) {
     imports.push(`import { ${variables} } from '${p.name}'`);
   });
 
-  fs.readdirSync(componentRootPath).forEach((componentFolder) => {
-    // ignore ts files in component root folder
-    if (componentFolder.endsWith('.ts') || componentFolder === '.gitignore') {
-      return;
-    }
+  if (fs.existsSync(componentRootPath)) {
+    fs.readdirSync(componentRootPath).forEach((fileOrFolder) => {
+      let componentName = '';
+      let importPath = '';
 
-    const componentFilePath = path.join(
-      componentRootPath,
-      componentFolder,
-      `${componentFolder}.component.ts`
-    );
+      // 1. Resolve standard single TSX files
+      if (fileOrFolder.endsWith('.tsx')) {
+        componentName = fileOrFolder.replace('.tsx', '');
+        importPath = `./${componentName}`;
+      } 
+      // 2. Resolve subfolder structures cleanly
+      else if (!fileOrFolder.includes('.') && fileOrFolder !== '.gitignore') {
+        const nestedFilePath = path.join(componentRootPath, fileOrFolder, `${fileOrFolder}.tsx`);
+        
+        if (fs.existsSync(nestedFilePath)) {
+          componentName = fileOrFolder;
+          importPath = `./${fileOrFolder}/${fileOrFolder}`;
+        } else {
+          return;
+        }
+      } else {
+        return; 
+      }
 
-    if (!fs.existsSync(componentFilePath)) {
-      return;
-    }
+      // Safeguard core system filenames
+      if (componentName === 'componentFactory' || componentName === 'index') return;
 
-    const componentFileContents = fs.readFileSync(componentFilePath, 'utf8');
+      console.log(`[VERIFY REGISTRATION] Mapping secure default export target for: ${componentName}`);
+      config.components.push(componentName);
 
-    // ASSUMPTION: your component should export a class directly that follows Angular conventions,
-    // i.e. `export class FooComponent` - so we can detect the component's name for auto registration.
-    const componentClassMatch = /export class (.+?)Component\b/g.exec(componentFileContents);
-
-    if (componentClassMatch === null) {
-      console.debug(
-        `Component ${componentFilePath} did not seem to export a component class. It will be skipped.`
+      // FORCE EXPLICIT DEFAULT EXPORT LOADING:
+      // Pulls the component default export layout directly, shielding Next.js from processing auxiliary internal functions.
+      imports.push(`import ${componentName}Component from '${importPath}';`);
+      
+      // Register the resolved primary component safely into the array
+      registrations.push(
+        `{ name: '${componentName}', type: ${componentName}Component },`
       );
-      return;
-    }
-
-    const componentName = componentClassMatch[1];
-    const importVarName = `${componentName}Component`;
-
-    config.components.push(componentName);
-
-    // check for lazy loading needs
-    const moduleFilePath = path.join(
-      componentRootPath,
-      componentFolder,
-      `${componentFolder}.module.ts`
-    );
-    const isLazyLoaded = fs.existsSync(moduleFilePath);
-
-    if (isLazyLoaded) {
-      console.debug(`Registering JSS component (lazy) ${componentName}`);
-      lazyRegistrations.push(
-        `{ path: '${componentName}', loadChildren: () => import('./${componentFolder}/${componentFolder}.module').then(m => m.${componentName}Module) },`
-      );
-    } else {
-      console.debug(`Registering JSS component ${componentName}`);
-      imports.push(
-        `import { ${importVarName} } from './${componentFolder}/${componentFolder}.component';`
-      );
-      registrations.push(`{ name: '${componentName}', type: ${importVarName} },`);
-      declarations.push(`${importVarName},`);
-    }
-  });
+    });
+  }
 
   return componentFactoryTemplate({
     imports,
@@ -127,9 +103,6 @@ function generateComponentFactory(config: ComponentFactoryPluginConfig) {
   });
 }
 
-/**
- * Generates the component factory file.
- */
 class ComponentFactoryPlugin implements ComponentFactoryPluginType {
   order = 9999;
 
@@ -144,4 +117,6 @@ class ComponentFactoryPlugin implements ComponentFactoryPluginType {
   }
 }
 
-export const componentFactoryPlugin = new ComponentFactoryPlugin();
+// --- SECURE SITECORE DEFAULT INSTANCE EXPORT ---
+const pluginInstance = new ComponentFactoryPlugin();
+export default pluginInstance;
