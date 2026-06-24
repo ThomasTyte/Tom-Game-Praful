@@ -10,6 +10,7 @@ import * as Video from 'src/components/video/Video';
 import * as videoprops from 'src/components/video/video-props';
 import * as VerticalImageAccordion from 'src/components/vertical-image-accordion/VerticalImageAccordion';
 import * as verticalimageaccordionprops from 'src/components/vertical-image-accordion/vertical-image-accordion.props';
+import * as UserProfile from 'src/components/UserProfile/UserProfile';
 import * as TopicListing from 'src/components/topic-listing/TopicListing';
 import * as TopicItemdev from 'src/components/topic-listing/TopicItem.dev';
 import * as topiclistingprops from 'src/components/topic-listing/topic-listing.props';
@@ -42,7 +43,7 @@ import * as subscriptionbannerdictionary from 'src/components/subscription-banne
 import * as StructuredData from 'src/components/structured-data/StructuredData';
 import * as SecondaryNavigation from 'src/components/secondary-navigation/SecondaryNavigation';
 import * as secondarynavigationprops from 'src/components/secondary-navigation/secondary-navigation.props';
-import * as Searchbar from 'src/components/searchbar/Searchbar';
+import * as Searchbar from 'src/components/Searchbar/Searchbar';
 import * as RichTextBlock from 'src/components/rich-text-block/RichTextBlock';
 import * as richtextblockprops from 'src/components/rich-text-block/rich-text-block.props';
 import * as PromoBlock from 'src/components/promo-block/PromoBlock';
@@ -56,6 +57,7 @@ import * as promoanimatedprops from 'src/components/promo-animated/promo-animate
 import * as portaldev from 'src/components/portal/portal.dev';
 import * as PageHeader from 'src/components/page-header/PageHeader';
 import * as pageheaderprops from 'src/components/page-header/page-header.props';
+import * as Orders from 'src/components/Orders/Orders';
 import * as MultiPromoTabs from 'src/components/multi-promo-tabs/MultiPromoTabs';
 import * as MultiPromoTabdev from 'src/components/multi-promo-tabs/MultiPromoTab.dev';
 import * as multipromotabsprops from 'src/components/multi-promo-tabs/multi-promo-tabs.props';
@@ -102,7 +104,10 @@ import * as globalheaderprops from 'src/components/global-header/global-header.p
 import * as GlobalFooter from 'src/components/global-footer/GlobalFooter';
 import * as globalfooterprops from 'src/components/global-footer/global-footer.props';
 import * as FooterNavigationColumn from 'src/components/global-footer/FooterNavigationColumn';
+import * as GameDetails from 'src/components/GameDetails/GameDetails';
+import * as GameDashboardContainer from 'src/components/GameDashboardContainer/GameDashboardContainer';
 import * as FooterNavigationCalloutdev from 'src/components/footer-navigation-callout/FooterNavigationCallout.dev';
+import * as Footer from 'src/components/Footer/Footer';
 import * as floatingdockdev from 'src/components/floating-dock/floating-dock.dev';
 import * as Flexdev from 'src/components/flex/Flex.dev';
 import * as CtaBanner from 'src/components/cta-banner/CtaBanner';
@@ -118,6 +123,7 @@ import * as Container4060 from 'src/components/container/container-4060/Containe
 import * as Container3070 from 'src/components/container/container-3070/Container3070';
 import * as Container303030 from 'src/components/container/container-303030/Container303030';
 import * as Container25252525 from 'src/components/container/container-25252525/Container25252525';
+import * as Comments from 'src/components/Comments/Comments';
 import * as Carddev from 'src/components/card/Card.dev';
 import * as ButtonComponent from 'src/components/button-component/ButtonComponent';
 import * as Breadcrumbs from 'src/components/breadcrumbs/Breadcrumbs';
@@ -142,6 +148,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['video-props', { ...videoprops }],
   ['VerticalImageAccordion', { ...VerticalImageAccordion, componentType: 'client' }],
   ['vertical-image-accordion', { ...verticalimageaccordionprops }],
+  ['UserProfile', { ...UserProfile, componentType: 'client' }],
   ['TopicListing', { ...TopicListing }],
   ['TopicItem', { ...TopicItemdev }],
   ['topic-listing', { ...topiclistingprops }],
@@ -186,6 +193,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['portal', { ...portaldev }],
   ['PageHeader', { ...PageHeader, componentType: 'client' }],
   ['page-header', { ...pageheaderprops }],
+  ['Orders', { ...Orders }],
   ['MultiPromoTabs', { ...MultiPromoTabs, componentType: 'client' }],
   ['MultiPromoTab', { ...MultiPromoTabdev }],
   ['multi-promo-tabs', { ...multipromotabsprops }],
@@ -231,7 +239,10 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['GlobalFooter', { ...GlobalFooter }],
   ['global-footer', { ...globalfooterprops }],
   ['FooterNavigationColumn', { ...FooterNavigationColumn, componentType: 'client' }],
+  ['GameDetails', { ...GameDetails, componentType: 'client' }],
+  ['GameDashboardContainer', { ...GameDashboardContainer }],
   ['FooterNavigationCallout', { ...FooterNavigationCalloutdev }],
+  ['Footer', { ...Footer }],
   ['floating-dock', { ...floatingdockdev }],
   ['Flex', { ...Flexdev }],
   ['CtaBanner', { ...CtaBanner }],
@@ -247,6 +258,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['Container3070', { ...Container3070 }],
   ['Container303030', { ...Container303030 }],
   ['Container25252525', { ...Container25252525 }],
+  ['Comments', { ...Comments, componentType: 'client' }],
   ['Card', { ...Carddev }],
   ['ButtonComponent', { ...ButtonComponent }],
   ['Breadcrumbs', { ...Breadcrumbs }],

@@ -7,6 +7,7 @@ import * as VideoPlayerdev from 'src/components/video/VideoPlayer.dev';
 import * as VideoModaldev from 'src/components/video/VideoModal.dev';
 import * as Video from 'src/components/video/Video';
 import * as VerticalImageAccordion from 'src/components/vertical-image-accordion/VerticalImageAccordion';
+import * as UserProfile from 'src/components/UserProfile/UserProfile';
 import * as themeproviderdev from 'src/components/theme-provider/theme-provider.dev';
 import * as TestimonialCarousel from 'src/components/testimonial-carousel/TestimonialCarousel';
 import * as Title from 'src/components/sxa/Title';
@@ -16,7 +17,7 @@ import * as Image from 'src/components/sxa/Image';
 import * as ContentBlock from 'src/components/sxa/ContentBlock';
 import * as SubscriptionBanner from 'src/components/subscription-banner/SubscriptionBanner';
 import * as SecondaryNavigation from 'src/components/secondary-navigation/SecondaryNavigation';
-import * as Searchbar from 'src/components/searchbar/Searchbar';
+import * as Searchbar from 'src/components/Searchbar/Searchbar';
 import * as PromoAnimatedImageRightdev from 'src/components/promo-animated/PromoAnimatedImageRight.dev';
 import * as PromoAnimatedDefaultdev from 'src/components/promo-animated/PromoAnimatedDefault.dev';
 import * as PromoAnimated from 'src/components/promo-animated/PromoAnimated';
@@ -35,7 +36,9 @@ import * as Icon from 'src/components/icon/Icon';
 import * as Hero from 'src/components/hero/Hero';
 import * as GlobalHeader from 'src/components/global-header/GlobalHeader';
 import * as FooterNavigationColumn from 'src/components/global-footer/FooterNavigationColumn';
+import * as GameDetails from 'src/components/GameDetails/GameDetails';
 import * as floatingdockdev from 'src/components/floating-dock/floating-dock.dev';
+import * as Comments from 'src/components/Comments/Comments';
 import * as ArticleListing from 'src/components/article-listing/ArticleListing';
 import * as ArticleHeader from 'src/components/article-header/ArticleHeader';
 import * as AnimatedSectiondev from 'src/components/animated-section/AnimatedSection.dev';
@@ -50,6 +53,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['VideoModal', { ...VideoModaldev }],
   ['Video', { ...Video }],
   ['VerticalImageAccordion', { ...VerticalImageAccordion }],
+  ['UserProfile', { ...UserProfile }],
   ['theme-provider', { ...themeproviderdev }],
   ['TestimonialCarousel', { ...TestimonialCarousel }],
   ['Title', { ...Title }],
@@ -78,7 +82,9 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['Hero', { ...Hero }],
   ['GlobalHeader', { ...GlobalHeader }],
   ['FooterNavigationColumn', { ...FooterNavigationColumn }],
+  ['GameDetails', { ...GameDetails }],
   ['floating-dock', { ...floatingdockdev }],
+  ['Comments', { ...Comments }],
   ['ArticleListing', { ...ArticleListing }],
   ['ArticleHeader', { ...ArticleHeader }],
   ['AnimatedSection', { ...AnimatedSectiondev }],
